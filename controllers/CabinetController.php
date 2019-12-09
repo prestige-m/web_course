@@ -1,72 +1,140 @@
 <?php
 
-/**
- * Контроллер CabinetController
- * Кабинет пользователя
- */
+
 class CabinetController
 {
-
-    /**
-     * Action для страницы "Кабинет пользователя"
-     */
     public function actionIndex()
     {
-        // Получаем идентификатор пользователя из сессии
         $userId = User::checkLogged();
-
-        // Получаем информацию о пользователе из БД
         $user = User::getUserById($userId);
 
-        // Подключаем вид
         require_once(ROOT . '/views/cabinet/index.php');
         return true;
     }
 
-    /**
-     * Action для страницы "Редактирование данных пользователя"
-     */
+
     public function actionEdit()
     {
-        // Получаем идентификатор пользователя из сессии
         $userId = User::checkLogged();
-
-        // Получаем информацию о пользователе из БД
         $user = User::getUserById($userId);
 
-        // Заполняем переменные для полей формы
-        $name = $user['name'];
-        $password = $user['password'];
+        $name = false;
+        $surname = false;
+        $middle_name = false;
+        $email = false;
+        $phone = false;
+        $messages = false;
 
-        // Флаг результата
-        $result = false;
-
-        // Обработка формы
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Получаем данные из формы редактирования
-            $name = $_POST['name'];
-            $password = $_POST['password'];
 
-            // Флаг ошибок
+            $name = $_POST['name'];
+            $surname = $_POST['surname'];
+            $middle_name = $_POST['middle_name'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+
             $errors = false;
 
-            // Валидируем значения
             if (!User::checkName($name)) {
-                $errors[] = 'Имя не должно быть короче 2-х символов';
+                $errors[] = 'Значення поля "Ім’я" має бути більше, ніж 2 символи';
             }
-            if (!User::checkPassword($password)) {
-                $errors[] = 'Пароль не должен быть короче 6-ти символов';
+            if (!User::checkName($surname)) {
+                $errors[] = 'Значення поля "Прізвище" має бути більше, ніж 2 символи';
             }
-
+            if (!User::checkName($middle_name)) {
+                $errors[] = 'Значення поля "По батькові" має бути більше, ніж 2 символи';
+            }
+            if (!User::checkEmail($email)) {
+                $errors[] = 'Неправильна електрона адреса';
+            }
             if ($errors == false) {
-                // Если ошибок нет, сохраняет изменения профиля
-                $result = User::edit($userId, $name, $password);
+                if (User::edit($userId, $name, $surname, $middle_name, $phone, $email)) {
+                    $messages[] = 'Ваші дані успішно змінені.';
+                }
+            }
+        }
+        unset($_SESSION['errors']);
+        $_SESSION['errors'] = $errors;
+        unset($_SESSION['messages']);
+        $_SESSION['messages'] = $messages;
+
+        header("Location: /cabinet/");
+        return true;
+    }
+
+    public function actionChange()
+    {
+        $userId = User::checkLogged();
+        $user = User::getUserById($userId);
+
+        $errors = false;
+        $messages = false;
+
+        $photoFolder = ROOT . '/template/images/user/';
+        $fileType = explode('.', $_FILES['photo']['name'])[1];
+        $photoName = 'user' . $userId . '_avatar.' . $fileType;
+        $uploadFile = $photoFolder . $photoName;
+        $types = array('gif', 'png', 'jpeg', 'jpg', 'bmp');
+
+        if (in_array($fileType, $types))
+        {
+            if ($_FILES['photo']['size'] <= 5 * 1024 * 1024)
+            {
+                copy($_FILES['photo']['tmp_name'], $uploadFile);
+                if (User::updatePhotoById($userId, $photoName)) {
+                    $messages[] = 'Зображення успішно змінено.';
+                }
+            }
+            else
+            {
+                $errors[] = "Зображення має бути розміром не більше 5 Мб!";
+            }
+        }
+        else
+        {
+            $errors[] = "Файл не відповідає типам (jpg, jpeg, png, gif, bmp)!";
+        }
+
+        unset($_SESSION['errors']);
+        $_SESSION['errors'] = $errors;
+        unset($_SESSION['messages']);
+        $_SESSION['messages'] = $messages;
+
+        header("Location: /cabinet/");
+        return true;
+    }
+
+    public function actionPasschange()
+    {
+        $userId = User::checkLogged();
+        $user = User::getUserById($userId);
+
+        $password = false;
+        $pass_repeat = false;
+        $errors = false;
+        $messages = false;
+
+        if (isset($_POST['submit'])) {
+
+            $password = $_POST['pass'];
+            $pass_repeat = $_POST['pass_repeat'];
+
+            if ($password != $pass_repeat) {
+                $errors[] = 'Паролі не співпадають!';
+            }
+            if ($errors == false) {
+                if (User::updatePassword($userId, $password)) {
+                    $messages[] = 'Пароль успішно змінено.';
+                }
             }
         }
 
-        // Подключаем вид
-        require_once(ROOT . '/views/cabinet/edit.php');
+        unset($_SESSION['errors']);
+        $_SESSION['errors'] = $errors;
+        unset($_SESSION['messages']);
+        $_SESSION['messages'] = $messages;
+
+        header("Location: /cabinet/");
         return true;
     }
 

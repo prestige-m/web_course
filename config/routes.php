@@ -19,6 +19,8 @@ return array(
     'user/register' => 'user/register',
     'user/login' => 'user/login',
     'user/logout' => 'user/logout',
+    'cabinet/change/photo' => 'cabinet/change',
+    'cabinet/change/password' => 'cabinet/passchange',
     'cabinet/edit' => 'cabinet/edit',
     'cabinet' => 'cabinet/index',
     // Управление товарами:

@@ -9,21 +9,20 @@
         <link href="/template/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="/template/css/all.min.css" rel="stylesheet" type="text/css">
         <link href="/template/css/my_styles.css" rel="stylesheet" type="text/css">
+        <link href="/template/css/bootstrap-toggle.min.css" rel="stylesheet" type="text/css">
           <!-- <link href="/template/css/test.css" rel="stylesheet" type="text/css"> -->
     </head>
 
     <body>
-        <div class="wpage-wrapper">
-
-                <div class="header-middle">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4">
+     <div class="page-wrapper">
+        <div class="container">
+                <div class="row">
+                            <div class="col-md-4 col-sm-4 col-lg-6">
                                 <div class="float-left">
                                     <a class="site-title" href="/"><h1 class="display-10">Електронна бібліотека</h1></a>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 col-sm-8 col-lg-6">
 
                                 <div class="shop-menu float-right">
                                     <ul class="nav">
@@ -36,44 +35,36 @@
                                             <li class="nav-item"><a class="nav-link" href="/user/login/"><i class="fa fa-lock"></i> Вхід</a></li>
                                             <li class="nav-item"><a class="nav-link" href="/user/register"><i class="fa fa-user-circle"></i> Реєстрація</a></li>
                                         <?php else: ?>
-                                            <li class="nav-item"><a class="nav-link" href="/cabinet/"><i class="fa fa-user"></i> Аккаунт</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="/cabinet/"><i class="fa fa-user"></i> Особистий кабінет</a></li>
                                             <li class="nav-item"><a class="nav-link" href="/user/logout/"><i class="fa fa-unlock"></i> Вихід</a></li>
                                         <?php endif; ?>
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div><!--/header-middle-->
+                </div>
 
-                <div class="header-bottom"><!--header-bottom-->
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-                                </div>
-                                <div class="mainmenu pull-left">
-                                    <ul class="nav navbar-nav collapse navbar-collapse">
-                                        <li><a href="/">Головна</a></li>
-                                        <li class="dropdown"><a href="#">Бібліотека<i class="fa fa-angle-down"></i></a>
-                                            <ul role="menu" class="sub-menu">
-                                                <li><a href="/catalog/">Каталог книг</a></li>
-                                                <li><a href="/cart/">Корзина</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="/about/">Про бібліотеку</a></li>
-                                        <li><a href="/contacts/">Контакти</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--/header-bottom-->
+                <div class="row">
+                      <div class="col-md-12 col-sm-12 col-lg-12">
+                          <div class="float-left">
+                            <nav class="navbar navbar-expand-lg navbar-light">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item"><a class="nav-link" href="/">Головна</a></li>
+                                    <li class="nav-item dropdown">
+                                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Бібліотека
+                                      </a>
+                                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                         <a class="dropdown-item" href="/catalog/">Каталог книг</a>
+                                         <a class="dropdown-item" href="/cart/">Корзина</a>
+                                      </div>
+                                    </li>
 
-            </header><!--/header-->
+                                    <li class="nav-item"><a class="nav-link" href="/about/">Про бібліотеку</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/contacts/">Контакти</a></li>
+                                </ul>
+                            </nav>
+                          </div>
+                      </div>
+                </div>
+
+</div>
