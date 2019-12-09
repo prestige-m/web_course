@@ -1,9 +1,7 @@
 <?php
 
-
 class Book
 {
-
     // Количество отображаемых книг по умолчанию
     const SHOW_BY_DEFAULT = 6;
 
@@ -25,7 +23,6 @@ class Book
 
         return $result->fetchAll();
     }
-
 
     public static function getBookListByGenre($genreId, $page = 1)
     {
@@ -141,7 +138,7 @@ class Book
 
         $db = Db::getConnection();
         $sql = 'UPDATE book SET name=:name, genre_id=:genre_id, publisher_id=:publisher_id, '
-                .'year=:year, pages=:pages, price=:price, amount=:amount '
+                .'year=:year, pages=:pages '//, price=:price, amount=:amount '
                 .'WHERE id=:id';
 
         $result = $db->prepare($sql);
@@ -151,8 +148,8 @@ class Book
         $result->bindParam(':publisher_id', $options['publisher_id'], PDO::PARAM_INT);
         $result->bindParam(':year', $options['year'], PDO::PARAM_INT);
         $result->bindParam(':pages', $options['pages'], PDO::PARAM_INT);
-        $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
-        $result->bindParam(':amount', $options['amount'], PDO::PARAM_INT);
+        // $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
+        // $result->bindParam(':amount', $options['amount'], PDO::PARAM_INT);
         return $result->execute();
     }
 
@@ -161,8 +158,8 @@ class Book
     {
 
         $db = Db::getConnection();
-        $sql = 'INSERT INTO book (name, genre_id, publisher_id, year, pages, price, amount)'
-                .' VALUES (:name, :genre_id, :publisher_id, :year, :pages, :price, :amount)';
+        $sql = 'INSERT INTO book (name, genre_id, publisher_id, year, pages)'
+                .' VALUES (:name, :genre_id, :publisher_id, :year, :pages)';
 
         $result = $db->prepare($sql);
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
@@ -170,13 +167,11 @@ class Book
         $result->bindParam(':publisher_id', $options['publisher_id'], PDO::PARAM_INT);
         $result->bindParam(':year', $options['year'], PDO::PARAM_INT);
         $result->bindParam(':pages', $options['pages'], PDO::PARAM_INT);
-        $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
-        $result->bindParam(':amount', $options['amount'], PDO::PARAM_INT);
+        // $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
+        // $result->bindParam(':amount', $options['amount'], PDO::PARAM_INT);
         if ($result->execute()) {
-            // Если запрос выполенен успешно, возвращаем id добавленной записи
             return $db->lastInsertId();
         }
-        // Иначе возвращаем 0
         return 0;
     }
 
@@ -189,6 +184,15 @@ class Book
         $result->execute();
 
         return $result->fetch()['image_name'];
+    }
+
+    public static function addAuthor($book_id, $author_id) {
+        $db = Db::getConnection();
+        $sql = "INSERT INTO book_author (book_id, author_id) VALUES (:book_id, :author_id)";
+        $result = $db->prepare($sql);
+        $result->bindParam(':book_id', $book_id, PDO::PARAM_STR);
+        $result->bindParam(':author_id', $author_id, PDO::PARAM_INT);
+        return $result->execute();
     }
 
     public static function getImage($id)

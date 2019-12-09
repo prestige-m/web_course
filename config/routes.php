@@ -24,20 +24,20 @@ return array(
     'cabinet/edit' => 'cabinet/edit',
     'cabinet' => 'cabinet/index',
 
-    'admin/product/create' => 'adminProduct/create',
-    'admin/product/update/([0-9]+)' => 'adminProduct/update/$1',
-    'admin/product/delete/([0-9]+)' => 'adminProduct/delete/$1',
-    'admin/product' => 'adminProduct/index',
+    'admin/book/create' => 'adminBook/create',
+    'admin/book/update/([0-9]+)' => 'adminBook/update/$1',
+    'admin/book/delete/([0-9]+)' => 'adminBook/delete/$1',
+    'admin/book' => 'adminBook/index',
 
-    'admin/category/create' => 'adminCategory/create',
-    'admin/category/update/([0-9]+)' => 'adminCategory/update/$1',
-    'admin/category/delete/([0-9]+)' => 'adminCategory/delete/$1',
-    'admin/category' => 'adminCategory/index',
+    'admin/genre/create' => 'adminGenre/create',
+    'admin/genre/update/([0-9]+)' => 'adminGenre/update/$1',
+    'admin/genre/delete/([0-9]+)' => 'adminGenre/delete/$1',
+    'admin/genre' => 'adminGenre/index',
 
-    'admin/order/update/([0-9]+)' => 'adminOrder/update/$1',
-    'admin/order/delete/([0-9]+)' => 'adminOrder/delete/$1',
-    'admin/order/view/([0-9]+)' => 'adminOrder/view/$1',
-    'admin/order' => 'adminOrder/index',
+    'admin/reservation/update/([0-9]+)' => 'adminReserve/update/$1',
+    'admin/reservation/delete/([0-9]+)' => 'adminReserve/delete/$1',
+    'admin/reservation/view/([0-9]+)' => 'adminReserve/view/$1',
+    'admin/reservation' => 'adminReserve/index',
     // Админпанель:
     'admin' => 'admin/index',
 

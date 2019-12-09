@@ -1,10 +1,7 @@
 <?php
 
-
 class AdminBookController extends AdminBase
 {
-
-
     public function actionIndex()
     {
         self::checkAdmin();
@@ -15,67 +12,54 @@ class AdminBookController extends AdminBase
         return true;
     }
 
-    /**
-     * Action для страницы "Добавить товар"
-     */
     public function actionCreate()
     {
-        // Проверка доступа
         self::checkAdmin();
+        $genres = Genre::getGenreList();
+        $publisherList = Publisher::getPublisherList();
+        $authorList = Author::getAuthorList();
+        $errors = false;
+        $messages = false;
 
-        // Получаем список категорий для выпадающего списка
-        $categoriesList = Category::getCategoriesListAdmin();
-
-        // Обработка формы
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Получаем данные из формы
+            $author_id = $_POST['author_id'];
+
+            $options['id'] = $_POST['book_id'];
             $options['name'] = $_POST['name'];
-            $options['code'] = $_POST['code'];
-            $options['price'] = $_POST['price'];
-            $options['category_id'] = $_POST['category_id'];
-            $options['brand'] = $_POST['brand'];
-            $options['availability'] = $_POST['availability'];
-            $options['description'] = $_POST['description'];
-            $options['is_new'] = $_POST['is_new'];
-            $options['is_recommended'] = $_POST['is_recommended'];
-            $options['status'] = $_POST['status'];
+            $options['genre_id'] = $_POST['genre_id'];
+            $options['publisher_id'] = $_POST['publisher_id'];
+            $options['year'] = $_POST['year'];
+            $options['pages'] = $_POST['page_count'];
 
-            // Флаг ошибок в форме
-            $errors = false;
+            // $image_name = $_POST['image_name'];
 
-            // При необходимости можно валидировать значения нужным образом
-            if (!isset($options['name']) || empty($options['name'])) {
-                $errors[] = 'Заполните поля';
+            if (intval($options['year']) <= 1900 || intval($options['year']) > intval(date("Y"))) {
+               $errors[] = 'Рік видання задано не корректно!';
+            }
+
+            if (intval($options['pages']) <= 0) {
+               $errors[] = 'Кількість сторінок задано не корректно!';
             }
 
             if ($errors == false) {
-                // Если ошибок нет
-                // Добавляем новый товар
-                $id = Product::createProduct($options);
+                $id = Book::createBook($options);
+                Book::addAuthor($id, $author_id);
 
-                // Если запись добавлена
-                if ($id) {
-                    // Проверим, загружалось ли через форму изображение
-                    if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
-                        // Если загружалось, переместим его в нужную папке, дадим новое имя
-                        move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
-                    }
-                };
+                // if ($id) {
+                //     if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
+                //         move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
+                //     }
+                // };
 
-                // Перенаправляем пользователя на страницу управлениями товарами
-                header("Location: /admin/product");
+                header("Location: /admin/book");
             }
         }
 
-        // Подключаем вид
-        require_once(ROOT . '/views/admin_product/create.php');
+        require_once(ROOT . '/views/admin_book/create.php');
         return true;
     }
 
-    /**
-     * Action для страницы "Редактировать товар"
-     */
+
     public function actionUpdate($id)
     {
         // Проверка доступа

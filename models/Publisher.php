@@ -1,38 +1,38 @@
 <?php
 
-class Genre
+
+class Publisher
 {
-    public static function getGenreList()
+    public static function getPublisherList()
     {
         $db = Db::getConnection();
-        $result = $db->query('SELECT id, name FROM genre ORDER BY name ASC');
+        $result = $db->query('SELECT id, name FROM publisher ORDER BY name ASC');
         return $result->fetchAll();
     }
 
-    public static function deleteGenreById($id)
+    public static function deletePublisherById($id)
     {
         $db = Db::getConnection();
-        $sql = 'DELETE FROM genre WHERE id = :id';
-
+        $sql = 'DELETE FROM publisher WHERE id = :id';
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         return $result->execute();
     }
 
-    public static function updateGenreById($id, $name)
+    public static function updatePublisherById($id, $name)
     {
         $db = Db::getConnection();
-        $sql = "UPDATE genre SET name = :name WHERE id = :id";
+        $sql = "UPDATE publisher SET name = :name WHERE id = :id";
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->bindParam(':name', $name, PDO::PARAM_STR);
         return $result->execute();
     }
 
-    public static function getGenreById($id)
+    public static function getPublisherById($id)
     {
         $db = Db::getConnection();
-        $sql = 'SELECT * FROM genre WHERE id = :id';
+        $sql = 'SELECT * FROM publisher WHERE id = :id';
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->setFetchMode(PDO::FETCH_ASSOC);
@@ -40,12 +40,13 @@ class Genre
         return $result->fetch();
     }
 
-    public static function createGenre($name)
+    public static function createPublisher($name)
     {
         $db = Db::getConnection();
-        $sql = 'INSERT INTO genre (name) VALUES (:name)';
+        $sql = 'INSERT INTO publisher (name) VALUES (:name)';
         $result = $db->prepare($sql);
         $result->bindParam(':name', $name, PDO::PARAM_STR);
         return $result->execute();
     }
+
 }

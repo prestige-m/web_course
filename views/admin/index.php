@@ -13,9 +13,9 @@
                 Вітаємо <strong><?= $user['name'] ?></strong>, вам доступні для управління наступні таблиці:
             </div>
              <div class="list-group list-group-flush">
-                 <a href="/admin/product" class="list-group-item list-group-item-action">Таблиця "Книги"</a>
-                 <a href="#" class="list-group-item list-group-item-action">Таблиця "Жанри"</a>
-                 <a href="#" class="list-group-item list-group-item-action">Таблиця "Заброньовані книги"</a>
+                 <a href="/admin/book" class="list-group-item list-group-item-action">Таблиця "Книги"</a>
+                 <a href="/admin/genre" class="list-group-item list-group-item-action">Таблиця "Жанри"</a>
+                 <a href="/admin/reservation" class="list-group-item list-group-item-action">Таблиця "Заброньовані книги"</a>
              </div>
         </div>
      </div>
