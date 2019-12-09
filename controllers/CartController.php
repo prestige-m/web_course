@@ -12,13 +12,11 @@ class CartController
         header("Location: $referrer");
     }
 
-
     public function actionAddAjax($id)
     {
         echo Cart::addBook($id);
         return true;
     }
-
 
     public function actionDelete($id)
     {
@@ -39,7 +37,7 @@ class CartController
 
         if ($cartItems) {
             $itemsId = array_keys($cartItems);
-            $items = Book::getProdustsByIds($itemsId);
+            $items = Book::getBooksByIds($itemsId);
             // total
         }
 
@@ -51,25 +49,16 @@ class CartController
     public function actionCheckout()
     {
         $cartItems = Cart::getBooks();
+        $errors = false;
 
         if ($cartItems == false) {
-            header("Location: /");
+            $errors[] = "Кошик порожній!";
         }
 
-        $genres = Genre::getGenreList();
-
         $itemsId = array_keys($cartItems);
-        $books = Book::getBooksByIds($itemsId);
-
-        $totalAmount = Cart::itemsCount();
-
-
-        $userName = false;
-        $userPhone = false;
-        $userComment = false;
-
-        //order status
+        $items = Book::getBooksByIds($itemsId);
         $result = false;
+        $messages = false;
 
         if (!User::isGuest()) {
             $userId = User::checkLogged();
@@ -77,39 +66,24 @@ class CartController
             $userName = $user['name'];
         } else {
             $userId = false;
+            $errors[] = "Забронювати книги можуть лише авторизовані користувачі!";
         }
 
-        if (isset($_POST['submit'])) {
 
-            $userName = $_POST['userName'];
-            $userPhone = $_POST['userPhone'];
-            $userComment = $_POST['userComment'];
-
-            $errors = false;
-
-            if (!User::checkName($userName)) {
-                $errors[] = 'Неправильное имя';
-            }
-            if (!User::checkPhone($userPhone)) {
-                $errors[] = 'Неправильный телефон';
-            }
-
-
-            if ($errors == false) {
-                $result = Order::save($userName, $userPhone, $userComment, $userId, $productsInCart);
-
-                if ($result) {
-                    $adminEmail = 'volodshzk@gmail.com';
-                    $message = '<a href="http://digital-mafia.net/admin/orders">Список заказов</a>';
-                    $subject = 'Новый заказ!';
-                    mail($adminEmail, $subject, $message);
-
-                    Cart::clear();
-                }
+        if ($errors == false) {
+            $result = Reservation::save($userId, $items);
+            if ($result) {
+                Cart::clear();
+                $messages[] = "Книжки успішно заброньовано.";
             }
         }
 
-        require_once(ROOT . '/views/cart/checkout.php');
+        unset($_SESSION['errors']);
+        $_SESSION['errors'] = $errors;
+        unset($_SESSION['messages']);
+        $_SESSION['messages'] = $messages;
+
+        header("Location: /cart/");
         return true;
     }
 

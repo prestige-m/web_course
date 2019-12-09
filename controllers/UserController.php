@@ -74,13 +74,12 @@ class UserController
             }
 
             $userId = User::checkUserData($email, $password);
+            $user_info = User::getUserById($userId);
 
             if ($userId == false) {
                 $errors[] = 'Неправильна електронна адреса або пароль.';
             } else {
-                User::auth($userId);
-
-                header("Location: /cabinet");
+                User::auth($userId, $user_info['role_id']);
             }
         }
 
@@ -93,6 +92,7 @@ class UserController
     {
         session_start();
         unset($_SESSION["user"]);
+        unset($_SESSION["user_role"]);
         header("Location: /");
     }
 

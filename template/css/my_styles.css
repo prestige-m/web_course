@@ -44,8 +44,8 @@ a.site-title:hover, a.site-title:active {
     background: #FFFFFF;
     color: #696763;
     font-family: 'Roboto', sans-serif;
-    padding-right: 10px;
-   
+    padding-left: 0;
+    padding-right: 15px;  
 }
 
 .shop-menu ul li a:hover {
@@ -99,11 +99,13 @@ a.site-title:hover, a.site-title:active {
    font-size: 5px;
 }
 
-.card {
-   padding-top: 5px;
-   padding-bottom: 5px;
+#category-item {
+  /* padding-top: 5px;
+   padding-bottom: 5px;*/
 }
 
 .page-buffer { 
    margin-top: 30px;
 }
+
+

@@ -1,25 +1,17 @@
 <?php
 
-/**
- * Контроллер AdminProductController
- * Управление товарами в админпанели
- */
-class AdminProductController extends AdminBase
+
+class AdminBookController extends AdminBase
 {
 
-    /**
-     * Action для страницы "Управление товарами"
-     */
+
     public function actionIndex()
     {
-        // Проверка доступа
         self::checkAdmin();
 
-        // Получаем список товаров
-        $productsList = Product::getProductsList();
+        $bookList = Book::getBookList();
 
-        // Подключаем вид
-        require_once(ROOT . '/views/admin_product/index.php');
+        require_once(ROOT . '/views/admin_book/index.php');
         return true;
     }
 

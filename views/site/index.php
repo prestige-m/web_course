@@ -3,20 +3,8 @@
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 col-md-3">
-                <div class="left-sidebar">
-                    <h2>Каталог</h2>
-                    <?php foreach ($genres as $genreItem): ?>
-                    <a class="category-group" href="/category/<?php echo $genreItem['id']; ?>">
-                        <div class="card card-header">
-                            <h5 class="card-title">
-                              <?php echo $genreItem['name']; ?>
-                            </h5>
-                        </div>
-                    </a>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+
+            <?php include ROOT . '/views/layouts/left_menu.php'; ?>
 
             <div class="col-sm-9 col-md-9">
                 <div class="items">
@@ -25,7 +13,7 @@
                     <?php foreach ($latestBooks as $book): ?>
                         <div class="col-sm-4 col-md-4 float-left pb-2" >
                             <div class="item-container item-info text-center">
-                              <a href="/product/<?php echo $book['id']; ?>">
+                              <a href="/book/<?php echo $book['id']; ?>">
                                   <img class="item-image" src="<?php echo Book::getImage($book['id']); ?>" alt="" />
                               </a>
 							                <div class="row justify-content-center">
@@ -40,7 +28,7 @@
 								             </div>
               								<div class="row justify-content-center">
                                   <div class="col-12">
-                                      <a href="#" class="btn btn-info add-to-cart" data-id="<?php echo $book['id']; ?>">
+                                      <a href="#" class="btn btn-secondary add-to-cart btn-block" data-id="<?php echo $book['id']; ?>">
       								                <i class="fas fa-heart"></i><span id="button-text"> Читати</span></a>
                                   </div>
               								</div>

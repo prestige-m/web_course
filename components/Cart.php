@@ -6,7 +6,6 @@ class Cart
     public static function addBook($id)
     {
         $cartItems = array();
-
         if (isset($_SESSION['books'])) {
             $cartItems = $_SESSION['books'];
         }

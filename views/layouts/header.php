@@ -17,20 +17,26 @@
      <div class="page-wrapper">
         <div class="container">
                 <div class="row">
-                            <div class="col-md-4 col-sm-4 col-lg-6">
+                            <div class="col-md-5 col-sm-5 col-lg-5">
                                 <div class="float-left">
-                                    <a class="site-title" href="/"><h1 class="display-10">Електронна бібліотека</h1></a>
+                                    <a class="site-title" href="/"><h2 class=""><strong>Електронна бібліотека</strong></h2></a>
                                 </div>
                             </div>
-                            <div class="col-md-8 col-sm-8 col-lg-6">
+                            <div class="col-md-7 col-sm-7 col-lg-7">
 
                                 <div class="shop-menu float-right">
                                     <ul class="nav">
+
+                                        <?php if (User::isAdmin()): ?>
+                                            <li class="nav-item"><a class="nav-link" href="/admin/"><i class="fas fa-crown"></i></i> Панель адміністратора</a></li>
+                                        <?php endif; ?>
+
                                         <li class="nav-item"><a class="nav-link" href="/cart">
                                                 <i class="fa fa-book"></i> Вибрані книги
                                                 (<span id="cart-count"><?php echo Cart::itemsCount(); ?></span>)
                                             </a>
                                         </li>
+
                                         <?php if (User::isGuest()): ?>
                                             <li class="nav-item"><a class="nav-link" href="/user/login/"><i class="fa fa-lock"></i> Вхід</a></li>
                                             <li class="nav-item"><a class="nav-link" href="/user/register"><i class="fa fa-user-circle"></i> Реєстрація</a></li>

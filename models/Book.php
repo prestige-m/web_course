@@ -65,7 +65,7 @@ class Book
                   .'WHERE book.id = :id';
 
         $result = $db->prepare($sql);
-        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':id', $id, PDO::PARAM_STR);
         $result->setFetchMode(PDO::FETCH_ASSOC);
         $result->execute();
         return $result->fetch();
@@ -86,7 +86,7 @@ class Book
     }
 
 
-    public static function getProdustsByIds($idsArray)
+    public static function getBooksByIds($idsArray)
     {
         $db = Db::getConnection();
 
@@ -102,10 +102,7 @@ class Book
 
         $result = $db->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
-        // $result = $db->prepare($sql);
-        // $result->bindParam(':string_id', $stringId, PDO::PARAM_STR);
-        // $result->execute();
-        // $result->setFetchMode(PDO::FETCH_ASSOC);
+
         return $result->fetchAll();
     }
 
@@ -135,7 +132,7 @@ class Book
         $sql = 'DELETE FROM book WHERE id = :id';
 
         $result = $db->prepare($sql);
-        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':id', $id, PDO::PARAM_STR);
         return $result->execute();
     }
 
@@ -148,7 +145,7 @@ class Book
                 .'WHERE id=:id';
 
         $result = $db->prepare($sql);
-        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':id', $id, PDO::PARAM_STR);
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
         $result->bindParam(':genre_id', $options['genre_id'], PDO::PARAM_INT);
         $result->bindParam(':publisher_id', $options['publisher_id'], PDO::PARAM_INT);
@@ -160,7 +157,7 @@ class Book
     }
 
 
-    public static function createProduct($options)
+    public static function createBook($options)
     {
 
         $db = Db::getConnection();
@@ -183,7 +180,6 @@ class Book
         return 0;
     }
 
-
     public static function getImageNameById($id) {
         $db = Db::getConnection();
         $sql = 'SELECT image_name FROM book WHERE id = :id';
@@ -201,12 +197,9 @@ class Book
         $path = '/template/images/books/';
         $imageName = self::getImageNameById($id);
 
-        $types = array('gif', 'png', 'jpeg', 'jpg', 'bmp');
-        foreach($types as $type) {
-          $imagePath = $path . $imageName .'.'. $type;
-          if (file_exists($_SERVER['DOCUMENT_ROOT'].$imagePath)) {
-              return $imagePath;
-          }
+        $imagePath = $path . $imageName;
+        if (file_exists($_SERVER['DOCUMENT_ROOT'].$imagePath)) {
+            return $imagePath;
         }
 
         return $path . $noImage;

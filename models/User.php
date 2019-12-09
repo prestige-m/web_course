@@ -75,9 +75,10 @@ class User
         $db = Db::getConnection();
         $sql = 'SELECT * FROM customer WHERE email = :email AND password = :password';
 
+        $hashPassword = md5($password);
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
-        $result->bindParam(':password', md5($password), PDO::PARAM_STR);
+        $result->bindParam(':password', $hashPassword, PDO::PARAM_STR);
         $result->execute();
         $user = $result->fetch();
 
@@ -88,9 +89,10 @@ class User
     }
 
 
-    public static function auth($userId)
+    public static function auth($userId, $userRole)
     {
         $_SESSION['user'] = $userId;
+        $_SESSION['user_role'] = $userRole;
     }
 
 
@@ -111,6 +113,14 @@ class User
         return true;
     }
 
+    public static function isAdmin()
+    {
+        if (isset($_SESSION['user']) && isset($_SESSION['user_role'])
+            && $_SESSION['user_role'] == 1) {
+            return true;
+        }
+        return false;
+    }
 
     public static function checkName($name)
     {
