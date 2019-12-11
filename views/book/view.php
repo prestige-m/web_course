@@ -10,7 +10,7 @@
                <div class="row">
                    <div class="col-sm-6 col-md-6 col-lg-6">
                        <img src="<?php echo Book::getImage($book['id']); ?>" alt="" style="width: 100%; height: 100%;" />
-                       <div class="row justify-content-center">
+                       <div class="row justify-content-center pt-2">
                            <div class="col-sm-6 col-md-6 col-lg-6">
                                <a href="#" class="btn btn-secondary add-to-cart btn-block" data-id="<?= $book['id']; ?>">
                                <i class="fas fa-heart"></i><span id="button-text"> Читати</span></a>

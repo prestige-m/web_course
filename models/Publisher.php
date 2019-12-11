@@ -43,7 +43,7 @@ class Publisher
     public static function createPublisher($name)
     {
         $db = Db::getConnection();
-        $sql = 'INSERT INTO publisher (name) VALUES (:name)';
+        $sql = "INSERT INTO publisher (name) VALUES (:name)";
         $result = $db->prepare($sql);
         $result->bindParam(':name', $name, PDO::PARAM_STR);
         return $result->execute();

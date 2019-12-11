@@ -70,29 +70,25 @@ a.site-title:hover, a.site-title:active {
 
 /*----footer----*/
 
-
-#footer {
-    width: 100%;
-    background: #f2f2f2;
-    height: 60px;
-    line-height: 60px;
+#page-content {
+  flex: 1 0 auto;
 }
 
-
-#footer {
-    margin-top: -60px;
-    border-bottom: 1px solid #E0E0DA;
-    padding-bottom: 20px;
+#sticky-footer {
+  flex-shrink: none;
+  background: #f2f2f2;
 }
+/*-----------*/
 
 .item-container {
-   width: 160px;
+   width: 200px;
+   height: 300px;
    font-size: 15px;
 }
 
 .item-image {
-   width: 100%;
-   height: auto;
+   width: 180px; 
+   height: 230px;
 }
 
 .category-group {
@@ -103,6 +99,7 @@ a.site-title:hover, a.site-title:active {
   /* padding-top: 5px;
    padding-bottom: 5px;*/
 }
+
 
 .page-buffer { 
    margin-top: 30px;

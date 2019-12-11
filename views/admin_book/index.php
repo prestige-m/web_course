@@ -1,6 +1,27 @@
 <?php include ROOT . '/views/layouts/header.php'; ?>
+<!--
+<div id="deleteModal" class="modal fade" tabindex="1000" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
 
 <section>
+
     <div class="container">
         <div class="row justify-content-center">
             <h2 class="title text-center mb-4">Таблиця "Книги"</h2>
@@ -12,10 +33,13 @@
                   <li class="breadcrumb-item active" aria-current="page">Таблиця "Книги"</li>
               </ol>
             </nav>
-
             <a href="/admin/book/create" class="btn btn-default ml-3"><i class="fas fa-plus"></i> <strong>Додати книгу</strong></a>
         </div>
+
         <div class="row">
+
+
+
             <table class="table">
             <thead class="thead-dark">
               <tr>
@@ -41,9 +65,11 @@
                     <td><?= $book['publisher_name'];?></td>
                     <td><?= $book['year'];?></td>
                     <td><?= $book['pages'];?></td>
-                    <td><?= Book::getImageNameById($book['id']);?></td>
-                    <td><a href="/admin/book/update/<?= $book['id'] ?>" title="Редагувати"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="/admin/book/delete/<?= $book['id'] ?>" title="Видалити"><i class="far fa-times-circle"></i></a></td>
+                    <td><?= Book::getImageNameById($book['id']);?></td>  <?php #?>
+                    <td><a name="edit-item" href="/admin/book/update/<?= $book['id'] ?>" title="Редагувати"><i class="fas fa-edit"></i></a></td>
+                    <td><a name="delete-item" href="/admin/book/delete/<?= $book['id'] ?>" title="Видалити">
+                        <i class="far fa-times-circle"></i></a>
+                    </td>
                   </tr>
               <?php endforeach; ?>
             </tbody>

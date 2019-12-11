@@ -18,12 +18,12 @@ class UserController
 
         if (isset($_POST['submit'])) {
 
-            $name = $_POST['name'];
-            $surname = $_POST['surname'];
-            $middle_name = $_POST['middle_name'];
-            $email = $_POST['email'];
+            $name = htmlspecialchars($_POST['name']);
+            $surname = htmlspecialchars($_POST['surname']);
+            $middle_name = htmlspecialchars($_POST['middle_name']);
+            $email = htmlspecialchars($_POST['email']);
             $password = $_POST['password'];
-            $phone = $_POST['phone'];
+            $phone = htmlspecialchars($_POST['phone']);
 
             $errors = false;
 
@@ -61,8 +61,8 @@ class UserController
         $password = false;
 
         if (isset($_POST['submit'])) {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+            $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
 
             $errors = false;
 

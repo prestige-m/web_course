@@ -159,7 +159,6 @@ class User
         $db = Db::getConnection();
 
         $sql = 'SELECT COUNT(*) FROM customer WHERE email = :email';
-
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
         $result->execute();

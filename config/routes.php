@@ -2,6 +2,7 @@
 
 return array(
 
+    'page-([0-9]+)' => 'site/index/$1',
     'book/([0-9]+)' => 'book/view/$1',
 
     'catalog' => 'catalog/index',
@@ -28,6 +29,11 @@ return array(
     'admin/book/update/([0-9]+)' => 'adminBook/update/$1',
     'admin/book/delete/([0-9]+)' => 'adminBook/delete/$1',
     'admin/book' => 'adminBook/index',
+
+    'admin/publisher/create' => 'adminPublisher/create',
+    'admin/publisher/update/([0-9]+)' => 'adminPublisher/update/$1',
+    'admin/publisher/delete/([0-9]+)' => 'adminPublisher/delete/$1',
+    'admin/publisher' => 'adminPublisher/index',
 
     'admin/genre/create' => 'adminGenre/create',
     'admin/genre/update/([0-9]+)' => 'adminGenre/update/$1',

@@ -12,7 +12,6 @@ class CabinetController
         return true;
     }
 
-
     public function actionEdit()
     {
         $userId = User::checkLogged();
@@ -27,11 +26,11 @@ class CabinetController
 
         if (isset($_POST['submit'])) {
 
-            $name = $_POST['name'];
-            $surname = $_POST['surname'];
-            $middle_name = $_POST['middle_name'];
-            $email = $_POST['email'];
-            $phone = $_POST['phone'];
+            $name = htmlspecialchars($_POST['name']);
+            $surname = htmlspecialchars($_POST['surname']);
+            $middle_name = htmlspecialchars($_POST['middle_name']);
+            $email = htmlspecialchars($_POST['email']);
+            $phone = htmlspecialchars($_POST['phone']);
 
             $errors = false;
 
@@ -66,7 +65,6 @@ class CabinetController
     {
         $userId = User::checkLogged();
         $user = User::getUserById($userId);
-
         $errors = false;
         $messages = false;
 

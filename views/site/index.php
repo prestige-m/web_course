@@ -11,18 +11,18 @@
                     <h2 class="title text-center mb-4">Нові книги</h2>
 
                     <?php foreach ($latestBooks as $book): ?>
-                        <div class="col-sm-4 col-md-4 float-left pb-2" >
+                        <div class="col-sm-4 col-md-4 float-left py-3" >
                             <div class="item-container item-info text-center">
                               <a href="/book/<?php echo $book['id']; ?>">
                                   <img class="item-image" src="<?php echo Book::getImage($book['id']); ?>" alt="" />
                               </a>
 							                <div class="row justify-content-center">
-                                 <div class="col-12">
+                                 <div class="col-12 text-truncate">
                                   <?php echo $book['author_name'] . ' ' . $book['author_surname']; ?>
                                 </div>
 							                </div>
 							                <div class="row justify-content-center font-weight-bold" >
-                                 <div class="col-12">
+                                 <div class="col-12 text-truncate">
                                   <?php echo $book['name']; ?>
                                  </div>
 								             </div>
@@ -36,13 +36,14 @@
                         </div>
                     <?php endforeach; ?>
 
+                  </div>
 
-                </div>
-
+              <div class="col-sm-12 col-md-12 col-lg-12 offset-4 float-left pt-4">
+                  <?php echo $pagination->get();?>
+              </div>
 
         </div>
     </div>
-
  </section>
 
 <?php include ROOT . '/views/layouts/footer.php'; ?>

@@ -1,6 +1,5 @@
 <?php
 
-
 class BookController
 {
     public function actionView($bookId)

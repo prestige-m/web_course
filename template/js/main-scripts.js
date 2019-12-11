@@ -10,6 +10,13 @@ $(document).ready(function(){
 
 
 
+$(window).load(function() {
+ $("#deleteModal").modal('show');
+  // $("#delete-btn").on('click', function () {
+  //
+  // });
+});
+
 $(".add-to-cart").click(function() {
    $(this).toggleClass('btn-primary btn-secondary');
 

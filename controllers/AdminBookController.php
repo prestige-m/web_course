@@ -20,38 +20,63 @@ class AdminBookController extends AdminBase
         $authorList = Author::getAuthorList();
         $errors = false;
         $messages = false;
+        $options = false;
 
         if (isset($_POST['submit'])) {
-            $author_id = $_POST['author_id'];
+            $author_id = htmlspecialchars($_POST['author_id']);
+            $options['id'] = htmlspecialchars($_POST['book_id']);
+            $options['name'] = htmlspecialchars($_POST['name']);
+            $options['genre_id'] = htmlspecialchars($_POST['genre_id']);
+            $options['publisher_id'] = htmlspecialchars($_POST['publisher_id']);
+            $options['year'] = htmlspecialchars($_POST['year']);
+            $options['pages'] = htmlspecialchars($_POST['page_count']);
 
-            $options['id'] = $_POST['book_id'];
-            $options['name'] = $_POST['name'];
-            $options['genre_id'] = $_POST['genre_id'];
-            $options['publisher_id'] = $_POST['publisher_id'];
-            $options['year'] = $_POST['year'];
-            $options['pages'] = $_POST['page_count'];
-
-            // $image_name = $_POST['image_name'];
-
-            if (intval($options['year']) <= 1900 || intval($options['year']) > intval(date("Y"))) {
+            if (Book::checkBookIdExists($options['id'])) {
+               $errors[] = 'Книга з заданим кодом вже існує!';
+            }
+            if (intval($options['year']) < 1000 || intval($options['year']) > intval(date("Y"))) {
                $errors[] = 'Рік видання задано не корректно!';
             }
-
             if (intval($options['pages']) <= 0) {
                $errors[] = 'Кількість сторінок задано не корректно!';
             }
 
+            $fileName = NULL;
+            if (isset($_FILES['img_file']) && $_FILES['img_file']['error'] == 0) {
+                $photoFolder = ROOT . '/template/images/books/';
+                $fileType = explode('.', $_FILES['img_file']['name'])[1];
+                $fileName = $options['id'] . '.' . $fileType;
+                $uploadFile = $photoFolder . $fileName;
+                $types = ['gif', 'png', 'jpeg', 'jpg', 'bmp'];
+                if (in_array($fileType, $types))
+                {
+                    if ($_FILES['img_file']['size'] <= 5 * 1024 * 1024)
+                    {
+                        copy($_FILES['img_file']['tmp_name'], $uploadFile);
+                    }
+                    else
+                    {
+                        $errors[] = "Зображення має бути розміром не більше 5 Мб!";
+                    }
+                }
+                else
+                {
+                    $errors[] = "Файл не відповідає типам (jpg, jpeg, png, gif, bmp)!";
+                }
+            }
+
             if ($errors == false) {
                 $id = Book::createBook($options);
-                Book::addAuthor($id, $author_id);
-
-                // if ($id) {
-                //     if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
-                //         move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
-                //     }
-                // };
-
-                header("Location: /admin/book");
+                if ($id) {
+                    if (!is_null($fileName)) {
+                        Book::changeImageById($id, $fileName);
+                    }
+                    if (Book::addAuthor($id, $author_id)) {
+                        $messages[] = 'Книгу успішно додано.';
+                    } else {
+                        $errors[] = 'Помилка запиту до бази даних!';
+                    }
+                }
             }
         }
 
@@ -59,75 +84,79 @@ class AdminBookController extends AdminBase
         return true;
     }
 
-
     public function actionUpdate($id)
     {
-        // Проверка доступа
         self::checkAdmin();
+        $book = Book::getBookById($id);
+        $genres = Genre::getGenreList();
+        $publisherList = Publisher::getPublisherList();
+        $authorList = Author::getAuthorList();
+        $errors = false;
+        $messages = false;
+        $options = false;
 
-        // Получаем список категорий для выпадающего списка
-        $categoriesList = Category::getCategoriesListAdmin();
-
-        // Получаем данные о конкретном заказе
-        $product = Product::getProductById($id);
-
-        // Обработка формы
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Получаем данные из формы редактирования. При необходимости можно валидировать значения
-            $options['name'] = $_POST['name'];
-            $options['code'] = $_POST['code'];
-            $options['price'] = $_POST['price'];
-            $options['category_id'] = $_POST['category_id'];
-            $options['brand'] = $_POST['brand'];
-            $options['availability'] = $_POST['availability'];
-            $options['description'] = $_POST['description'];
-            $options['is_new'] = $_POST['is_new'];
-            $options['is_recommended'] = $_POST['is_recommended'];
-            $options['status'] = $_POST['status'];
+            $author_id = htmlspecialchars($_POST['author_id']);
+            $options['name'] = htmlspecialchars($_POST['name']);
+            $options['genre_id'] = htmlspecialchars($_POST['genre_id']);
+            $options['publisher_id'] = htmlspecialchars($_POST['publisher_id']);
+            $options['year'] = htmlspecialchars($_POST['year']);
+            $options['pages'] = htmlspecialchars($_POST['page_count']);
 
-            // Сохраняем изменения
-            if (Product::updateProductById($id, $options)) {
+            if (intval($options['year']) < 1000 || intval($options['year']) > intval(date("Y"))) {
+               $errors[] = 'Рік видання задано не корректно!';
+            }
+            if (intval($options['pages']) <= 0) {
+               $errors[] = 'Кількість сторінок задано не корректно!';
+            }
 
-
-                // Если запись сохранена
-                // Проверим, загружалось ли через форму изображение
-                if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
-
-                    // Если загружалось, переместим его в нужную папке, дадим новое имя
-                   move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
+            $fileName = NULL;
+            if (isset($_FILES["img_file"]) && $_FILES['img_file']['error'] == 0) {
+                $photoFolder = ROOT . '/template/images/books/';
+                $fileType = explode('.', $_FILES['img_file']['name'])[1];
+                $fileName = $id . '.' . $fileType;
+                $uploadFile = $photoFolder . $fileName;
+                $types = ['gif', 'png', 'jpeg', 'jpg', 'bmp'];
+                if (in_array($fileType, $types))
+                {
+                    if ($_FILES['img_file']['size'] <= 5 * 1024 * 1024)
+                    {
+                        copy($_FILES['img_file']['tmp_name'], $uploadFile);
+                    }
+                    else
+                    {
+                        $errors[] = "Зображення має бути розміром не більше 5 Мб!";
+                    }
+                }
+                else
+                {
+                    $errors[] = "Файл не відповідає типам (jpg, jpeg, png, gif, bmp)!";
                 }
             }
 
-            // Перенаправляем пользователя на страницу управлениями товарами
-            header("Location: /admin/product");
+            if ($errors == false) {
+                $result = Book::updateBookById($id, $options);
+                if ($result) {
+                    if (!is_null($fileName)) {
+                        Book::changeImageById($id, $fileName);
+                    }
+                    if (Book::changeAuthor($id, $author_id)) {
+                        $messages[] = 'Дані книги успішно змінено.';
+                    } else {
+                        $errors[] = 'Помилка запиту до бази даних!';
+                    }
+                }
+            }
         }
-
-        // Подключаем вид
-        require_once(ROOT . '/views/admin_product/update.php');
+        require_once(ROOT . '/views/admin_book/update.php');
         return true;
     }
 
-    /**
-     * Action для страницы "Удалить товар"
-     */
     public function actionDelete($id)
     {
-        // Проверка доступа
         self::checkAdmin();
-
-        // Обработка формы
-        if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Удаляем товар
-            Product::deleteProductById($id);
-
-            // Перенаправляем пользователя на страницу управлениями товарами
-            header("Location: /admin/product");
-        }
-
-        // Подключаем вид
-        require_once(ROOT . '/views/admin_product/delete.php');
+        Book::deleteBookById($id);
+        header("Location: /admin/book");
         return true;
     }
 

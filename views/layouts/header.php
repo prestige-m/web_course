@@ -13,8 +13,10 @@
           <!-- <link href="/template/css/test.css" rel="stylesheet" type="text/css"> -->
     </head>
 
-    <body>
-     <div class="page-wrapper">
+    <!-- <body> -->
+  <body class="d-flex flex-column">
+  <div id="page-content">
+     <!-- <div class="page-wrapper"> -->
         <div class="container">
                 <div class="row">
                             <div class="col-md-5 col-sm-5 col-lg-5">
