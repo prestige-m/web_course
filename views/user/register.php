@@ -53,7 +53,7 @@
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-6 col-md-2">
-                                 <input type="submit" class="btn btn-secondary btn-block" name="submit" value="Реєстрація" />
+                                 <input type="submit" class="btn btn-secondary btn-block" name="submit" value="Зареєструвати" />
                                </div>
                             </div>
                         </form>

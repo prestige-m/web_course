@@ -48,7 +48,7 @@ class Reservation
     {
         $db = Db::getConnection();
 
-        $sql = "SELECT book_reservation.id, customer.name, customer.surname,
+        $sql = "SELECT book_reservation.id as res_id, customer.name, customer.surname,
 				customer.phone, customer_id, books, order_date FROM book_reservation
 				INNER JOIN customer ON customer_id = customer.id WHERE book_reservation.id = :id";
 
@@ -57,6 +57,31 @@ class Reservation
         $result->setFetchMode(PDO::FETCH_ASSOC);
         $result->execute();
         return $result->fetch();
+    }
+
+    public static function getReservationByUserId($id)
+    {
+        $db = Db::getConnection();
+
+        $sql = "SELECT book_reservation.id as res_id, customer.name, customer.surname,
+				customer.phone, customer_id, books, order_date FROM book_reservation
+				INNER JOIN customer ON customer_id = customer.id WHERE customer.id = :id";
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        return $result->fetchAll();
+    }
+
+    public static function getLastId()
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT MAX(id) as last_id FROM book_reservation";
+        $result = $db->prepare($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        return intval($result->fetch()['last_id']);
     }
 
     public static function deleteReservationById($id)

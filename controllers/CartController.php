@@ -69,15 +69,15 @@ class CartController
             $errors[] = "Забронювати книги можуть лише авторизовані користувачі!";
         }
 
-
         if ($errors == false) {
             $result = Reservation::save($userId, $items);
             if ($result) {
                 Cart::clear();
+                $order_id = Reservation::getLastId();
+                $_SESSION['order_id'] = $order_id;
                 $messages[] = "Книжки успішно заброньовано.";
             }
         }
-
         unset($_SESSION['errors']);
         $_SESSION['errors'] = $errors;
         unset($_SESSION['messages']);

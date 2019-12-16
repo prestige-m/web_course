@@ -48,6 +48,12 @@ class UserController
 
             if ($errors == false) {
                 $result = User::register($name, $surname, $middle_name, $phone, $email, $password);
+                if($result) {
+                   $userId = User::checkUserData($email, $password);
+                   User::auth($userId, $user_info['role_id']);
+                   unset($_SESSION['order_id']);
+                   header("Location: /");
+                }
             }
         }
 
@@ -80,6 +86,8 @@ class UserController
                 $errors[] = 'Неправильна електронна адреса або пароль.';
             } else {
                 User::auth($userId, $user_info['role_id']);
+                unset($_SESSION['order_id']);
+                header("Location: /");
             }
         }
 

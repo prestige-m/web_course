@@ -10,6 +10,8 @@
                 <div class="items">
                     <h2 class="title text-center mb-4">Нові книги</h2>
 
+                    <?php if (!empty($latestBooks)): ?>
+
                     <?php foreach ($latestBooks as $book): ?>
                         <div class="col-sm-4 col-md-4 float-left py-3" >
                             <div class="item-container item-info text-center">
@@ -35,7 +37,9 @@
                           </div>
                         </div>
                     <?php endforeach; ?>
-
+                  <?php else: ?>
+                      <p>Нічого не знайдено. <i class="far fa-frown-open"></i></p>
+                  <?php endif; ?>
                   </div>
 
               <div class="col-sm-12 col-md-12 col-lg-12 offset-4 float-left pt-4">

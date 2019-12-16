@@ -22,6 +22,24 @@
           					</div>
         				</div>
       			</form>
+
+            <?php if (!empty($orderItems)): ?>
+            <form action="/cabinet/order" method="post">
+            <div class="row justify-content-center py-5 my-5">
+                <div align="center" class="col-5">
+                    <strong>Заброньовані книги:</strong>
+                    <select class="form-control my-3" name="order_id">
+                        <?php foreach ($orderItems as $order): ?>
+                            <option value="<?=$order['res_id'];?>">
+                               <?=$order['res_id']. ' - ' . $order['order_date'];?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <button class="btn btn-outline-success btn-block my-3" type="submit">Переглянути</button>
+                </div>
+            </div>
+          </form>
+            <?php endif; ?>
   	   </div>
     </div>
 

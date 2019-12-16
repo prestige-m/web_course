@@ -14,6 +14,18 @@ class SiteController
         return true;
     }
 
+    public function actionCategory($genreId, $page = 1)
+    {
+        $genres = Genre::getGenreList();
+
+        $latestBooks = Book::getBookListByGenre($genreId, $page);
+        $count = Book::getTotalBooksInCategory($genreId);
+        $pagination = new Pagination($count, $page, Book::SHOW_BY_DEFAULT, 'page-');
+
+        require_once(ROOT . '/views/site/index.php');
+        return true;
+    }
+
     public function actionAbout()
     {
         require_once(ROOT . '/views/site/about.php');

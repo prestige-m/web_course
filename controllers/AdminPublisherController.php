@@ -17,11 +17,15 @@ class AdminPublisherController extends AdminBase
         $messages = false;
         $options = false;
         $publisherName = false;
+        $cityId = false;
+        $cities = Publisher::getCitiesList();
 
         if (isset($_POST['submit'])) {
             $publisherName = htmlspecialchars($_POST['publisher_name']);
+            $cityId = htmlspecialchars($_POST['city_id']);
+
             if ($errors == false) {
-                if (Publisher::createPublisher($publisherName)) {
+                if (Publisher::createPublisher($publisherName, $cityId)) {
                     $messages[] = 'Видавництво успішно додано.';
                 } else {
                     $errors[] = 'Помилка запиту до бази даних!';
@@ -38,12 +42,16 @@ class AdminPublisherController extends AdminBase
         $errors = false;
         $messages = false;
         $options = false;
+        $cityId = false;
+        $cities = Publisher::getCitiesList();
         $publisher = Publisher::getPublisherById($id);
 
         if (isset($_POST['submit'])) {
             $publisherName = htmlspecialchars($_POST['publisher_name']);
+            $cityId = htmlspecialchars($_POST['city_id']);
+
             if ($errors == false) {
-                if (Publisher::updatePublisherById($id, $publisherName)) {
+                if (Publisher::updatePublisherById($id, $publisherName, $cityId)) {
                     $messages[] = 'Видавництво успішно змінено.';
                 } else {
                     $errors[] = 'Помилка запиту до бази даних!';

@@ -19,26 +19,27 @@ class Pagination
 
     public function get()
     {
-        $links = null;
-        $limits = $this->limits();
+       $html="";
+       if ($this->total > $this->limit) {
+         $links = null;
+         $limits = $this->limits();
 
-        $html = '<nav aria-label="page-navigation"><ul class="pagination">';
-        for ($page = $limits[0]; $page <= $limits[1]; $page++) {
-            if ($page == $this->current_page) {
-                $links .= '<li class="page-item"><a class="page-link" href="#">'. $page .'</a></li>';
-            } else {
-                $links .= $this->generateHtml($page);
-            }
-        }
-
-        if (!is_null($links)) {
-            if ($this->current_page > 1)
-                $links = $this->generateHtml(1, '&laquo;') . $links;
-            if ($this->current_page < $this->amount)
-                $links .= $this->generateHtml($this->amount, '&raquo;');
-        }
-
-        $html .= $links . '</ul></nav>';
+         $html = '<nav aria-label="page-navigation"><ul class="pagination">';
+         for ($page = $limits[0]; $page <= $limits[1]; $page++) {
+             if ($page == $this->current_page) {
+                 $links .= '<li class="page-item"><a class="page-link" href="#">'. $page .'</a></li>';
+             } else {
+                 $links .= $this->generateHtml($page);
+             }
+         }
+         if (!is_null($links)) {
+             if ($this->current_page > 1)
+                 $links = $this->generateHtml(1, '&laquo;') . $links;
+             if ($this->current_page < $this->amount)
+                 $links .= $this->generateHtml($this->amount, '&raquo;');
+         }
+         $html .= $links . '</ul></nav>';
+       }
         return $html;
     }
 

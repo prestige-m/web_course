@@ -5,18 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Електронна бібліотека</title>
 
-        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
         <link href="/template/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="/template/css/all.min.css" rel="stylesheet" type="text/css">
         <link href="/template/css/my_styles.css" rel="stylesheet" type="text/css">
         <link href="/template/css/bootstrap-toggle.min.css" rel="stylesheet" type="text/css">
-          <!-- <link href="/template/css/test.css" rel="stylesheet" type="text/css"> -->
     </head>
 
-    <!-- <body> -->
   <body class="d-flex flex-column">
   <div id="page-content">
-     <!-- <div class="page-wrapper"> -->
         <div class="container">
                 <div class="row">
                             <div class="col-md-5 col-sm-5 col-lg-5">
@@ -62,13 +58,12 @@
                                         Бібліотека
                                       </a>
                                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                         <a class="dropdown-item" href="/catalog/">Каталог книг</a>
+                                         <a class="dropdown-item" href="/">Каталог книг</a>
                                          <a class="dropdown-item" href="/cart/">Корзина</a>
                                       </div>
                                     </li>
 
                                     <li class="nav-item"><a class="nav-link" href="/about/">Про бібліотеку</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="/contacts/">Контакти</a></li>
                                 </ul>
                             </nav>
                           </div>

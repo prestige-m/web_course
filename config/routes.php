@@ -7,8 +7,8 @@ return array(
 
     'catalog' => 'catalog/index',
 
-    'category/([0-9]+)/page-([0-9]+)' => 'catalog/category/$1/$2',
-    'category/([0-9]+)' => 'catalog/category/$1',
+    'category/([0-9]+)/page-([0-9]+)' => 'site/category/$1/$2',
+    'category/([0-9]+)' => 'site/category/$1',
 
     'cart/checkout' => 'cart/checkout',
     'cart/clear' =>'cart/clear',
@@ -20,6 +20,9 @@ return array(
     'user/register' => 'user/register',
     'user/login' => 'user/login',
     'user/logout' => 'user/logout',
+    'cabinet/order' => 'cabinet/bookOrder',
+    'cabinet/delete/order' => 'cabinet/delete',
+    'cabinet/book/list' => 'cabinet/bookList',
     'cabinet/change/photo' => 'cabinet/change',
     'cabinet/change/password' => 'cabinet/passchange',
     'cabinet/edit' => 'cabinet/edit',

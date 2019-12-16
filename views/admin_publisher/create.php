@@ -49,6 +49,26 @@
                       </div>
                    </li>
                    <li class="list-group-item">
+                      <div class="row">
+                         <div class="col-md-5 col-sm-5 col-lg-5">
+                           <strong>Місто:</strong>
+                         </div>
+                         <div class="col-md-7 col-sm-7 col-lg-7">
+                             <select class="form-control" name="city_id">
+                               <?php if (is_array($cities)): ?>
+                                   <?php foreach ($cities as $city): ?>
+                                       <option value="<?=$city['id'];?>"
+                                          <?php if ($cityId==$city['id']) echo "selected";?>
+                                          >
+                                          <?=$city['name'];?>
+                                       </option>
+                                   <?php endforeach; ?>
+                               <?php endif; ?>
+                             </select>
+                         </div>
+                      </div>
+                   </li>
+                   <li class="list-group-item">
                       <div class="row justify-content-center">
                          <div class="col-md-6 col-sm-6 col-lg-6">
                             <button type="submit" name="submit" class="btn btn-outline-dark btn-block">Зберегти</button>

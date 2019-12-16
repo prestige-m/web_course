@@ -16,7 +16,6 @@
                  <a href="/admin/book" class="list-group-item list-group-item-action">Таблиця "Книги"</a>
                  <a href="/admin/genre" class="list-group-item list-group-item-action">Таблиця "Жанри"</a>
                  <a href="/admin/publisher" class="list-group-item list-group-item-action">Таблиця "Видавництва"</a>
-                 <a href="/admin/reservation" class="list-group-item list-group-item-action">Таблиця "Заброньовані книги"</a>
              </div>
         </div>
      </div>

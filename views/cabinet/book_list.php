@@ -2,13 +2,11 @@
 
 <section>
     <div class="container">
-        <div class="row">
-
-            <?php include ROOT . '/views/layouts/left_menu.php'; ?>
+        <div class="row justify-content-center">
 
             <div class="col-sm-9 padding-right">
                 <div class="features_items">
-                    <h2 class="title text-center">Книги у кошику</h2>
+                    <h2 class="title text-center">Заброньовані книги</h2>
 
                     <?php
                        if (isset($_SESSION['errors'])) {
@@ -35,15 +33,15 @@
                          }
                     ?>
 
-                    <?php if ($cartItems): ?>
-                        <p>Ви вибрали наступні книги:</p>
+                    <?php if (!empty($orderItems) && !empty($items)): ?>
+                        <p><strong>Номер бронювання: </strong>#<?=$orderItems['res_id'];?></p>
+                        <p><strong>Дата створення: </strong><?=$orderItems['order_date'];?></p>
                         <table id="book-info" class="table-bordered table-striped table">
                             <tr>
                                 <th>Код книги(ISBN)</th>
                                 <th>Назва</th>
                                 <th>Автор</th>
                                 <th>Видавництво</th>
-                                <th>Видалити</th>
                             </tr>
                           <tbody class="table-body">
                             <?php foreach ($items as $item): ?>
@@ -54,24 +52,17 @@
                                             <?php echo $item['name'];?>
                                         </a>
                                     </td>
-                                    <td><?php echo $item['author_name'] .' '. $item['author_surname'];?></td>
+                                    <td><?php echo $item['author_name'] ." ". $item['author_surname'];?></td>
                                     <td><?php echo $item['publisher_name'];?></td>
-                                    <td>
-                                        <a href="/cart/delete/<?php echo $item['id'];?>">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                           </tbody>
                         </table>
-                        <a class="btn btn-default checkout" href="/cart/checkout"><i class="fas fa-book-open"></i> Забронювати книги</a>
-                        <a class="btn btn-default checkout" href="/cart/clear"><i class="fa fa-trash"></i> Очистити кошик</a>
-                    <?php else: ?>
-                        <p>Ви нічого не вибрали. <i class="far fa-frown-open"></i></p>
-
-                        <a class="btn btn-default checkout" href="/"><i class="fas fa-home"></i> Головна сторінка</a>
-                    <?php endif; ?>
+                        <a class="btn btn-secondary mx-2" href="/cabinet/delete/order"> Видалити бронювання</a>
+                  <?php else: ?>
+                      <p>На жаль, нічого немає. <i class="far fa-frown-open"></i></i></p>
+                  <?php endif; ?>
+                    <a class="btn btn-secondary" href="/cabinet"> Назад</a>
 
                 </div>
             </div>

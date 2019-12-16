@@ -22,6 +22,7 @@
               <tr>
                 <th scope="col">Код видавництва</th>
                 <th scope="col">Назва видавництва</th>
+                <th scope="col">Код міста</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
               </tr>
@@ -31,6 +32,7 @@
                   <tr>
                     <td><?= $publisher['id'];?></td>
                     <td><?= $publisher['name'];?></td>
+                    <td><?= $publisher['city_id'];?></td>
                     <td><a name="edit-item" href="/admin/publisher/update/<?= $publisher['id'] ?>" title="Редагувати"><i class="fas fa-edit"></i></a></td>
                     <td><a name="delete-item" href="/admin/publisher/delete/<?= $publisher['id'] ?>" title="Видалити">
                         <i class="far fa-times-circle"></i></a>

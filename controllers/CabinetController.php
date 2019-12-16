@@ -7,6 +7,7 @@ class CabinetController
     {
         $userId = User::checkLogged();
         $user = User::getUserById($userId);
+        $orderItems = Reservation::getReservationByUserId($userId);
 
         require_once(ROOT . '/views/cabinet/index.php');
         return true;
@@ -133,6 +134,60 @@ class CabinetController
         $_SESSION['messages'] = $messages;
 
         header("Location: /cabinet/");
+        return true;
+    }
+
+    public function actionBookList()
+    {
+        $userId = User::checkLogged();
+        $user = User::getUserById($userId);
+
+        $order_id = 0;
+        if(isset($_SESSION['order_id'])) {
+          $order_id = $_SESSION['order_id'];
+          $orderItems = Reservation::getReservationById($order_id);
+          $items = json_decode($orderItems['books'], true);
+        }
+
+        require_once(ROOT . '/views/cabinet/book_list.php');
+        return true;
+    }
+    public function actionBookOrder()
+    {
+        $userId = User::checkLogged();
+        $user = User::getUserById($userId);
+        $orderItems = false;
+        $items = false;
+
+        $order_id = 0;
+        if(isset($_POST['order_id'])) {
+           $order_id = htmlspecialchars($_POST['order_id']);
+
+           $orderItems = Reservation::getReservationById($order_id);
+           $items = json_decode($orderItems['books'], true);
+        }
+
+        require_once(ROOT . '/views/cabinet/book_list.php');
+        return true;
+    }
+
+    public function actionDelete()
+    {
+        $userId = User::checkLogged();
+        $user = User::getUserById($userId);
+        $errors = false;
+        $messages = false;
+
+        $order_id = 0;
+        if(isset($_SESSION['order_id'])) {
+          $order_id = $_SESSION['order_id'];
+          Reservation::deleteReservationById($order_id);
+          unset($_SESSION['order_id']);
+          $messages[] = "Успішно видалено.";
+        }
+        unset($_SESSION['messages']);
+        $_SESSION['messages'] = $messages;
+        require_once(ROOT . '/views/cabinet/book_list.php');
         return true;
     }
 
