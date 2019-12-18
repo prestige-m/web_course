@@ -1,5 +1,4 @@
 <?php
-
 class Pagination
 {
     private $max = 10; //nav link amount
@@ -79,5 +78,4 @@ class Pagination
     {
         return ceil($this->total / $this->limit);
     }
-
 }

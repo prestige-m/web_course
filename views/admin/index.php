@@ -1,7 +1,6 @@
 <?php include ROOT . '/views/layouts/header.php'; ?>
 
 <section>
-
 <div class="row justify-content-center">
       <h2 class="title text-center mb-4">Панель адміністратора</h2>
 </div>

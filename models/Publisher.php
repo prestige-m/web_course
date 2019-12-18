@@ -1,6 +1,4 @@
 <?php
-
-
 class Publisher
 {
     public static function getPublisherList()

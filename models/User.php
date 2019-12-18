@@ -1,6 +1,4 @@
 <?php
-
-
 class User
 {
     public static function register($name, $surname, $middle_name, $phone, $email, $password)

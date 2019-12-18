@@ -1,6 +1,4 @@
 <?php
-
-
 class Cart
 {
     public static function addBook($id)
@@ -19,7 +17,6 @@ class Cart
         $_SESSION['books'] = $cartItems;
         return self::itemsCount();
     }
-
 
     public static function itemsCount()
     {
@@ -57,5 +54,4 @@ class Cart
         unset($cartItems[$id]);
         $_SESSION['books'] = $cartItems;
     }
-
 }

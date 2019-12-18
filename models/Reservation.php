@@ -1,6 +1,4 @@
 <?php
-
-
 class Reservation
 {
     public static function save($userId, $books)
@@ -18,8 +16,6 @@ class Reservation
 
         return $result->execute();
     }
-
-
     public static function getReservationList()
     {
         $db = Db::getConnection();
@@ -29,8 +25,6 @@ class Reservation
 
         return $result->fetchAll();
     }
-
-
     public static function getStatusText($status)
     {
         switch ($status) {
@@ -42,8 +36,6 @@ class Reservation
                 break;
         }
     }
-
-
     public static function getReservationById($id)
     {
         $db = Db::getConnection();
@@ -58,7 +50,6 @@ class Reservation
         $result->execute();
         return $result->fetch();
     }
-
     public static function getReservationByUserId($id)
     {
         $db = Db::getConnection();
@@ -73,7 +64,6 @@ class Reservation
         $result->execute();
         return $result->fetchAll();
     }
-
     public static function getLastId()
     {
         $db = Db::getConnection();
@@ -110,5 +100,4 @@ class Reservation
         $result->bindParam(':status', $status, PDO::PARAM_INT);
         return $result->execute();
     }
-
 }

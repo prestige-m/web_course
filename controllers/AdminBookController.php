@@ -5,9 +5,7 @@ class AdminBookController extends AdminBase
     public function actionIndex()
     {
         self::checkAdmin();
-
         $bookList = Book::getBookList();
-
         require_once(ROOT . '/views/admin_book/index.php');
         return true;
     }
@@ -159,5 +157,4 @@ class AdminBookController extends AdminBase
         header("Location: /admin/book");
         return true;
     }
-
 }

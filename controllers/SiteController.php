@@ -13,7 +13,6 @@ class SiteController
         require_once(ROOT . '/views/site/index.php');
         return true;
     }
-
     public function actionCategory($genreId, $page = 1)
     {
         $genres = Genre::getGenreList();
@@ -25,7 +24,6 @@ class SiteController
         require_once(ROOT . '/views/site/index.php');
         return true;
     }
-
     public function actionAbout()
     {
         require_once(ROOT . '/views/site/about.php');

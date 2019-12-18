@@ -1,27 +1,6 @@
 <?php include ROOT . '/views/layouts/header.php'; ?>
-<!--
-<div id="deleteModal" class="modal fade" tabindex="1000" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <section>
-
     <div class="container">
         <div class="row justify-content-center">
             <h2 class="title text-center mb-4">Таблиця "Книги"</h2>
@@ -35,11 +14,7 @@
             </nav>
             <a href="/admin/book/create" class="btn btn-default ml-3"><i class="fas fa-plus"></i> <strong>Додати книгу</strong></a>
         </div>
-
         <div class="row">
-
-
-
             <table class="table">
             <thead class="thead-dark">
               <tr>

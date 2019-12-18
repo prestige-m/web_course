@@ -1,8 +1,4 @@
 <?php
-
-/**
- * Контроллер UserController
- */
 class UserController
 {
     public function actionRegister()
@@ -103,5 +99,4 @@ class UserController
         unset($_SESSION["user_role"]);
         header("Location: /");
     }
-
 }

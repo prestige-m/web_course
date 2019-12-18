@@ -1,13 +1,9 @@
 <?php
-
-
 class CartController
 {
-
     public function actionAdd($id)
     {
         Cart::addBook($id);
-
         $referrer = $_SERVER['HTTP_REFERER'];
         header("Location: $referrer");
     }
@@ -44,8 +40,6 @@ class CartController
         require_once(ROOT . '/views/cart/index.php');
         return true;
     }
-
-
     public function actionCheckout()
     {
         $cartItems = Cart::getBooks();
@@ -86,5 +80,4 @@ class CartController
         header("Location: /cart/");
         return true;
     }
-
 }
